@@ -5,7 +5,7 @@ import {
     AlertTriangle, RefreshCw, X, Eye, Code, Link2
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
 export default function AdminDashboard() {
     const [projects, setProjects] = useState([]);
