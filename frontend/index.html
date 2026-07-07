@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👩‍💻</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Saba Khalid | Full-Stack Web Developer | BSIT Graduate</title>
+  <meta name="description"
+    content="Portfolio of Saba Khalid — Full-Stack Web Developer specializing in React, Django, FastAPI & Tailwind CSS. Based in Islamabad, Pakistan." />
+  <meta name="keywords"
+    content="Saba Khalid, Portfolio, Full-Stack Developer, React, Django, FastAPI, Tailwind CSS, Islamabad, Pakistan, BSIT" />
+  <meta name="author" content="Saba Khalid" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Saba Khalid | Full-Stack Web Developer" />
+  <meta property="og:description"
+    content="BSIT graduate skilled in React, Django, FastAPI & Supabase. Open to full-time and freelance opportunities." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Init theme before paint to prevent flash -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+
+<body class="antialiased">
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
