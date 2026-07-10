@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Plus, Edit, Trash2, LogOut, CheckCircle,
-    AlertTriangle, RefreshCw, X, Eye, Code, Link2
+    AlertTriangle, X, Code, Link2, FolderGit2
 } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
@@ -10,9 +10,11 @@ const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'ht
 export default function AdminDashboard() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
+    // Toast Notification State
+    const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+    // Modals State
     const [modalOpen, setModalOpen] = useState(false);
     const [currentProject, setCurrentProject] = useState(null); // null if adding, object if editing
     const [formData, setFormData] = useState({
@@ -27,6 +29,14 @@ export default function AdminDashboard() {
     const [deleteConfirmId, setDeleteConfirmId] = useState(null);
     const navigate = useNavigate();
 
+    const triggerToast = (message, type = 'success') => {
+        setToast({ show: true, message, type });
+        const timer = setTimeout(() => {
+            setToast(prev => ({ ...prev, show: false }));
+        }, 4000);
+        return () => clearTimeout(timer);
+    };
+
     const getToken = () => {
         return localStorage.getItem('admin_token');
     };
@@ -38,7 +48,6 @@ export default function AdminDashboard() {
 
     const fetchProjects = async () => {
         setLoading(true);
-        setError('');
         const token = getToken();
 
         if (!token) {
@@ -48,10 +57,7 @@ export default function AdminDashboard() {
 
         try {
             const res = await fetch(`${API_URL}/api/admin/projects`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                }
+                headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
             });
 
             if (res.status === 401) {
@@ -59,15 +65,13 @@ export default function AdminDashboard() {
                 return;
             }
 
-            if (!res.ok) {
-                throw new Error(`Failed to load admin project data. Status code: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`Failed to load projects. Status: ${res.status}`);
 
             const data = await res.json();
             setProjects(data);
         } catch (err) {
             console.error(err);
-            setError('Unable to link with portfolio database. Verify backend services are active.');
+            triggerToast('Unable to connect to database. Ensure backend services are running.', 'error');
         } finally {
             setLoading(false);
         }
@@ -79,28 +83,18 @@ export default function AdminDashboard() {
 
     const openAddModal = () => {
         setCurrentProject(null);
-        setFormData({
-            title: '',
-            description: '',
-            image_url: '',
-            github_link: '',
-            demo_link: '',
-            tech_stack: ''
-        });
+        setFormData({ title: '', description: '', image_url: '', github_link: '', demo_link: '', tech_stack: '' });
         setModalOpen(true);
     };
 
     const openEditModal = (proj) => {
         setCurrentProject(proj);
-
-        // Parse tech_stack array back to comma-separated string for editing
         let techString = '';
         if (Array.isArray(proj.tech_stack)) {
             techString = proj.tech_stack.join(', ');
         } else if (typeof proj.tech_stack === 'string') {
             techString = proj.tech_stack;
         }
-
         setFormData({
             title: proj.title || '',
             description: proj.description || '',
@@ -119,8 +113,6 @@ export default function AdminDashboard() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        setError('');
-        setSuccess('');
         const token = getToken();
 
         if (!token) {
@@ -128,35 +120,16 @@ export default function AdminDashboard() {
             return;
         }
 
-        // Convert comma-separated string into list of trimmed strings
-        const techArray = formData.tech_stack
-            .split(',')
-            .map(tag => tag.trim())
-            .filter(Boolean);
-
-        const payload = {
-            title: formData.title,
-            description: formData.description,
-            image_url: formData.image_url,
-            github_link: formData.github_link || '',
-            demo_link: formData.demo_link || '',
-            tech_stack: techArray
-        };
-
+        const techArray = formData.tech_stack.split(',').map(tag => tag.trim()).filter(Boolean);
+        const payload = { ...formData, tech_stack: techArray };
         const isEditMode = currentProject !== null;
-        const url = isEditMode
-            ? `${API_URL}/api/admin/projects/${currentProject.id}`
-            : `${API_URL}/api/admin/projects`;
-
+        const url = isEditMode ? `${API_URL}/api/admin/projects/${currentProject.id}` : `${API_URL}/api/admin/projects`;
         const method = isEditMode ? 'PUT' : 'POST';
 
         try {
             const res = await fetch(url, {
                 method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(payload)
             });
 
@@ -165,24 +138,20 @@ export default function AdminDashboard() {
                 return;
             }
 
-            if (!res.ok) {
-                throw new Error(`Failed to save project. Server returned side status: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`Failed to save project. Server code: ${res.status}`);
 
-            setSuccess(isEditMode ? 'Project configurations updated.' : 'New portfolio project logged.');
+            triggerToast(isEditMode ? 'Project configurations successfully updated.' : 'New portfolio project successfully added.', 'success');
             setModalOpen(false);
+            setFormData({ title: '', description: '', image_url: '', github_link: '', demo_link: '', tech_stack: '' });
             fetchProjects();
         } catch (err) {
             console.error(err);
-            setError(err.message || 'Error occurred saving project data.');
+            triggerToast(err.message || 'Error occurred saving project data.', 'error');
         }
     };
 
     const handleDelete = async (id) => {
-        setError('');
-        setSuccess('');
         const token = getToken();
-
         if (!token) {
             logout();
             return;
@@ -191,9 +160,7 @@ export default function AdminDashboard() {
         try {
             const res = await fetch(`${API_URL}/api/admin/projects/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                headers: { 'Authorization': `Bearer ${token}` }
             });
 
             if (res.status === 401) {
@@ -201,318 +168,176 @@ export default function AdminDashboard() {
                 return;
             }
 
-            if (!res.ok) {
-                throw new Error(`Failed to delete record. Server returned: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`Failed to delete record. Server status: ${res.status}`);
 
-            setSuccess('Project successfully deleted from database.');
+            triggerToast('Project successfully deleted from database.', 'success');
             fetchProjects();
         } catch (err) {
             console.error(err);
-            setError(err.message || 'Error processing delete command.');
+            triggerToast(err.message || 'Error processing delete command.', 'error');
         } finally {
             setDeleteConfirmId(null);
         }
     };
 
     return (
-        <div className="pt-28 pb-20 px-4 max-w-6xl mx-auto min-h-screen">
+        <div className="min-h-screen bg-[#080b14] text-white flex flex-col font-sans relative">
+            <header className="w-full bg-[#0d1120]/80 backdrop-blur-md border-b border-[#1e2d45] sticky top-0 z-30 px-6 py-4 flex items-center justify-between">
+                <span className="font-outfit font-extrabold text-xl text-[#8b5cf6] tracking-wide">SABA.DEV Admin</span>
+                <button onClick={logout} className="px-4 py-2 rounded-xl border border-[#1e2d45] hover:border-red-500/50 bg-[#131929] hover:bg-red-500/10 text-[#94a3b8] hover:text-red-400 font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer">
+                    <LogOut className="w-4 h-4" /> Logout
+                </button>
+            </header>
 
-            {/* Header Panel */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-805">
-                <div>
-                    <h1 className="font-outfit font-extrabold text-3xl text-white">
-                        Admin Dashboard
-                    </h1>
-                    <p className="text-slate-400 text-xs mt-1">
-                        Maintain database records for active portfolio projects.
-                    </p>
-                </div>
-
-                <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-                    <button
-                        onClick={openAddModal}
-                        id="admin-add-project-btn"
-                        className="px-4 py-2.5 rounded-xl bg-purple-650 hover:bg-purple-550 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-md shadow-purple-950/20"
-                    >
-                        <Plus className="w-4 h-4" /> Add Project
-                    </button>
-
-                    <button
-                        onClick={logout}
-                        id="admin-logout-btn"
-                        className="px-4 py-2.5 rounded-xl border border-slate-750 hover:border-slate-600 bg-slate-800/40 text-slate-300 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition-all"
-                    >
-                        <LogOut className="w-4 h-4" /> Exit
-                    </button>
-                </div>
-            </div>
-
-            {/* Notifications bar */}
-            {success && (
-                <div className="p-3 text-xs bg-emerald-500/10 border border-emerald-500/20 text-emerald-350 rounded-xl mb-6 flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-450" />
-                    {success}
-                </div>
-            )}
-
-            {error && (
-                <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/20 text-rose-350 rounded-xl mb-6 flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-rose-450" />
-                    {error}
-                </div>
-            )}
-
-            {/* Projects Table */}
-            {loading ? (
-                <div className="flex items-center justify-center py-20">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500" />
-                </div>
-            ) : projects.length === 0 ? (
-                <div className="text-center py-16 glass rounded-2xl">
-                    <p className="text-slate-450 text-sm mb-4">No projects registered in the database grid.</p>
-                    <button
-                        onClick={openAddModal}
-                        className="text-xs font-semibold px-4 py-2 bg-purple-600/20 text-purple-400 hover:bg-purple-605/30 border border-purple-500/30 rounded-lg transition-colors"
-                    >
-                        Create first project entry
-                    </button>
-                </div>
-            ) : (
-                <div className="w-full overflow-hidden rounded-2xl glass border border-slate-750">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="border-b border-slate-750 bg-slate-900/80 text-xs font-bold text-slate-400 uppercase">
-                                    <th className="py-4 px-5">Preview / Card</th>
-                                    <th className="py-4 px-5">Details</th>
-                                    <th className="py-4 px-5">Stack</th>
-                                    <th className="py-4 px-5 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-805/60 text-sm">
-                                {projects.map((project) => (
-                                    <tr key={project.id} className="hover:bg-slate-800/10 transition-colors">
-
-                                        {/* Art image container */}
-                                        <td className="py-4 px-5 whitespace-nowrap">
-                                            <div className="w-24 h-16 rounded-xl bg-slate-950 overflow-hidden relative border border-slate-800">
-                                                {project.image_url ? (
-                                                    <img
-                                                        src={project.image_url}
-                                                        alt={project.title}
-                                                        className="w-full h-full object-cover"
-                                                        onError={(e) => {
-                                                            e.target.onerror = null;
-                                                            e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=150';
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full bg-slate-900 flex items-center justify-center text-[10px] text-slate-650">No Img</div>
-                                                )}
-                                            </div>
-                                        </td>
-
-                                        {/* Metadata text */}
-                                        <td className="py-4 px-5 max-w-sm">
-                                            <h4 className="font-semibold text-white truncate">{project.title}</h4>
-                                            <p className="text-xs text-slate-450 mt-1 line-clamp-2 leading-relaxed">{project.description}</p>
-                                            <div className="flex gap-3 mt-2">
-                                                {project.github_link && (
-                                                    <a href={project.github_link} target="_blank" rel="noopener noreferrer" className="text-[10px] text-purple-400 hover:underline flex items-center gap-0.5" title="Git Repo">
-                                                        <Code className="w-3 h-3" /> GitHub
-                                                    </a>
-                                                )}
-                                                {project.demo_link && (
-                                                    <a href={project.demo_link} target="_blank" rel="noopener noreferrer" className="text-[10px] text-sky-400 hover:underline flex items-center gap-0.5" title="Live demo link">
-                                                        <Link2 className="w-3 h-3" /> Live
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </td>
-
-                                        {/* Stack labels */}
-                                        <td className="py-4 px-5">
-                                            <div className="flex flex-wrap gap-1 max-w-[200px]">
-                                                {(Array.isArray(project.tech_stack)
-                                                    ? project.tech_stack
-                                                    : typeof project.tech_stack === 'string'
-                                                        ? project.tech_stack.split(',')
-                                                        : []
-                                                ).map((tag, idx) => (
-                                                    <span
-                                                        key={idx}
-                                                        className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[9px] text-slate-350 whitespace-nowrap"
-                                                    >
-                                                        {tag.trim()}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </td>
-
-                                        {/* Options tools */}
-                                        <td className="py-4 px-5 whitespace-nowrap text-right text-xs">
-                                            {deleteConfirmId === project.id ? (
-                                                <div className="flex items-center gap-1.5 justify-end">
-                                                    <button
-                                                        onClick={() => handleDelete(project.id)}
-                                                        className="px-2.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-[10px] uppercase shadow-md shadow-rose-950/20"
-                                                    >
-                                                        Confirm Delete
-                                                    </button>
-                                                    <button
-                                                        onClick={() => setDeleteConfirmId(null)}
-                                                        className="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-semibold text-[10px] uppercase"
-                                                        title="Cancel delete verification"
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                </div>
-                                            ) : (
-                                                <div className="flex items-center gap-1.5 justify-end">
-                                                    <button
-                                                        onClick={() => openEditModal(project)}
-                                                        className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700 hover:border-slate-600 transition-all"
-                                                        title="Edit Project Configuration"
-                                                    >
-                                                        <Edit className="w-4 h-4" />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => setDeleteConfirmId(project.id)}
-                                                        className="p-2 rounded-lg bg-slate-800/40 text-slate-400 hover:text-rose-400 hover:bg-rose-950/25 border border-slate-700/60 hover:border-rose-900/30 transition-all"
-                                                        title="Delete Project Entry"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </td>
-
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+            <main className="flex-grow max-w-7xl w-full mx-auto px-6 py-10">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8 mt-2">
+                    <div className="flex items-center gap-4 bg-[#0d1120]/90 p-5 rounded-2xl border border-[#1e2d45] shadow-lg min-w-[200px]">
+                        <div className="p-3 bg-[#8b5cf6]/10 text-[#8b5cf6] rounded-xl">
+                            <FolderGit2 className="w-7 h-7" />
+                        </div>
+                        <div>
+                            <p className="text-xs text-[#94a3b8] font-bold uppercase tracking-wider">Total Projects</p>
+                            <h2 className="text-2xl font-extrabold font-outfit mt-0.5 text-white">{loading ? '...' : projects.length}</h2>
+                        </div>
                     </div>
+                    <button onClick={openAddModal} className="px-5 py-3.5 rounded-xl bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] hover:from-[#7c3aed] hover:to-[#db2777] text-white font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-purple-500/25 hover:-translate-y-0.5 cursor-pointer ml-auto sm:ml-0">
+                        <Plus className="w-4 h-4" /> Add New Project
+                    </button>
                 </div>
-            )}
 
-            {/* Add / Edit Drawer Panel (Glass Overlay Modal) */}
+                {loading ? (
+                    <div className="flex items-center justify-center py-32">
+                        <div className="relative w-12 h-12">
+                            <div className="absolute inset-0 rounded-full border-4 border-[#8b5cf6]/10"></div>
+                            <div className="absolute inset-0 rounded-full border-4 border-t-[#8b5cf6] border-r-transparent border-b-transparent border-l-transparent animate-spin"></div>
+                        </div>
+                    </div>
+                ) : projects.length === 0 ? (
+                    <div className="text-center py-20 bg-[#0d1120] rounded-2xl border border-[#1e2d45] max-w-lg mx-auto">
+                        <FolderGit2 className="w-12 h-12 text-[#475569] mx-auto mb-4" />
+                        <p className="text-[#94a3b8] text-sm mb-6">No projects registered in the database grid.</p>
+                        <button onClick={openAddModal} className="text-xs font-semibold px-5 py-2.5 bg-[#8b5cf6]/10 text-[#a78bfa] hover:bg-[#8b5cf6]/20 border border-[#8b5cf6]/30 rounded-xl transition-all cursor-pointer">
+                            Create First Project
+                        </button>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {projects.map((project) => (
+                            <div key={project.id} className="bg-[#0d1120] border border-[#1e2d45] rounded-2xl overflow-hidden hover:border-[#8b5cf6]/50 transition-all duration-300 shadow-xl flex flex-col group hover:-translate-y-1">
+                                <div className="w-full h-48 bg-[#131929] overflow-hidden relative border-b border-[#1e2d45]">
+                                    {project.image_url ? (
+                                        <img src={project.image_url} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600'; }} />
+                                    ) : (
+                                        <div className="w-full h-full flex flex-col items-center justify-center text-xs text-[#475569] gap-2">
+                                            <FolderGit2 className="w-8 h-8" />
+                                            <span>No Image Provided</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="p-5 flex-grow flex flex-col">
+                                    <h3 className="font-extrabold text-lg text-white group-hover:text-[#a78bfa] transition-colors line-clamp-1 mb-2">{project.title}</h3>
+                                    <p className="text-[#94a3b8] text-xs leading-relaxed line-clamp-3 mb-4">{project.description}</p>
+                                    <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
+                                        {(Array.isArray(project.tech_stack) ? project.tech_stack : typeof project.tech_stack === 'string' ? project.tech_stack.split(',') : []).map((tag, idx) => (
+                                            <span key={idx} className="px-2.5 py-0.5 rounded bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[10px] text-[#a78bfa] font-semibold whitespace-nowrap">{tag.trim()}</span>
+                                        ))}
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2 mb-4 pt-3 border-t border-[#1e2d45]">
+                                        {project.github_link ? (
+                                            <a href={project.github_link} target="_blank" rel="noopener noreferrer" className="py-2 px-3 rounded-lg bg-[#131929] hover:bg-[#1e2d45] text-xs text-[#94a3b8] hover:text-white border border-[#1e2d45] flex items-center justify-center gap-1.5 transition-all text-center">
+                                                <Code className="w-3.5 h-3.5" /> Repository
+                                            </a>
+                                        ) : (
+                                            <span className="py-2 px-3 rounded-lg bg-[#131929]/50 text-xs text-[#475569] border border-[#1e2d45]/50 flex items-center justify-center gap-1.5 select-none">No GitHub</span>
+                                        )}
+                                        {project.demo_link ? (
+                                            <a href={project.demo_link} target="_blank" rel="noopener noreferrer" className="py-2 px-3 rounded-lg bg-[#131929] hover:bg-[#1e2d45] text-xs text-[#94a3b8] hover:text-white border border-[#1e2d45] flex items-center justify-center gap-1.5 transition-all text-center">
+                                                <Link2 className="w-3.5 h-3.5" /> Live Demo
+                                            </a>
+                                        ) : (
+                                            <span className="py-2 px-3 rounded-lg bg-[#131929]/50 text-xs text-[#475569] border border-[#1e2d45]/50 flex items-center justify-center gap-1.5 select-none">No Demo</span>
+                                        )}
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2 mt-2 pt-3 border-t border-[#1e2d45]/60">
+                                        <button onClick={() => openEditModal(project)} className="py-2.5 px-3 rounded-lg bg-[#2563eb]/10 hover:bg-[#2563eb] border border-[#2563eb]/20 text-[#60a5fa] hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                                            <Edit className="w-3.5 h-3.5" /> Edit
+                                        </button>
+                                        <button onClick={() => setDeleteConfirmId(project.id)} className="py-2.5 px-3 rounded-lg bg-[#dc2626]/10 hover:bg-[#dc2626] border border-[#dc2626]/20 text-[#f87171] hover:text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                                            <Trash2 className="w-3.5 h-3.5" /> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </main>
+
             {modalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm select-none">
-                    <div className="w-full max-w-xl p-6 md:p-8 rounded-2xl glass border border-slate-750 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-
-                        <button
-                            onClick={() => setModalOpen(false)}
-                            className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors absolute top-4 right-4"
-                        >
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+                    <div className="w-full max-w-2xl p-6 md:p-8 rounded-2xl bg-[#0d1120] border border-[#1e2d45] shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                        <button onClick={() => setModalOpen(false)} className="p-2 rounded-lg bg-[#131929] hover:bg-[#1e2d45] text-[#94a3b8] hover:text-white transition-colors absolute top-4 right-4 cursor-pointer">
                             <X className="w-4 h-4" />
                         </button>
-
-                        <h2 className="font-outfit font-extrabold text-2xl text-white mb-6 pr-8">
-                            {currentProject ? 'Edit Project Entry' : 'Register New Project'}
-                        </h2>
-
-                        <form onSubmit={handleFormSubmit} className="space-y-4">
+                        <h2 className="font-outfit font-extrabold text-2xl text-white mb-6 pr-8">{currentProject ? 'Edit Project Configs' : 'Add New Project'}</h2>
+                        <form onSubmit={handleFormSubmit} className="space-y-5">
                             <div>
-                                <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">Project Title</label>
-                                <input
-                                    type="text"
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={handleInputChange}
-                                    required
-                                    placeholder="e.g. Creative Portfolio"
-                                    className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
-                                />
+                                <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">Project Title *</label>
+                                <input type="text" name="title" value={formData.title} onChange={handleInputChange} required placeholder="Enter Project Title" className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm transition-all" />
                             </div>
-
                             <div>
-                                <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">Short Summary / Description</label>
-                                <textarea
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleInputChange}
-                                    required
-                                    rows="3"
-                                    placeholder="Summarize the core functionality of the project..."
-                                    className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm resize-none"
-                                />
+                                <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">Description *</label>
+                                <textarea name="description" value={formData.description} onChange={handleInputChange} required rows="4" placeholder="Explain your project features and design details..." className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm resize-none transition-all" />
                             </div>
-
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">Image URL Address</label>
-                                    <input
-                                        type="url"
-                                        name="image_url"
-                                        value={formData.image_url}
-                                        onChange={handleInputChange}
-                                        placeholder="https://images.unsplash.com/..."
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
-                                    />
+                                    <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">Image URL Address</label>
+                                    <input type="url" name="image_url" value={formData.image_url} onChange={handleInputChange} placeholder="https://images.unsplash.com/..." className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm transition-all" />
                                 </div>
-
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">Tech Stack (comma separated)</label>
-                                    <input
-                                        type="text"
-                                        name="tech_stack"
-                                        value={formData.tech_stack}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="React, FastAPI, PostgreSQL"
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
-                                    />
+                                    <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">Tech Stack (comma separated) *</label>
+                                    <input type="text" name="tech_stack" value={formData.tech_stack} onChange={handleInputChange} required placeholder="React, FastAPI, Supabase" className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm transition-all" />
                                 </div>
                             </div>
-
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">GitHub Repository Link (optional)</label>
-                                    <input
-                                        type="url"
-                                        name="github_link"
-                                        value={formData.github_link}
-                                        onChange={handleInputChange}
-                                        placeholder="https://github.com/..."
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
-                                    />
+                                    <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">GitHub Link (optional)</label>
+                                    <input type="url" name="github_link" value={formData.github_link} onChange={handleInputChange} placeholder="https://github.com/..." className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm transition-all" />
                                 </div>
-
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-350 uppercase mb-1.5">Deployment Live Demo URL (optional)</label>
-                                    <input
-                                        type="url"
-                                        name="demo_link"
-                                        value={formData.demo_link}
-                                        onChange={handleInputChange}
-                                        placeholder="https://example.com"
-                                        className="w-full px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
-                                    />
+                                    <label className="block text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-2">Demo Link (optional)</label>
+                                    <input type="url" name="demo_link" value={formData.demo_link} onChange={handleInputChange} placeholder="https://..." className="w-full px-4 py-3 rounded-xl border border-[#1e2d45] bg-[#131929] text-white placeholder-[#475569] focus:outline-none focus:border-[#8b5cf6] text-sm transition-all" />
                                 </div>
                             </div>
-
-                            <div className="pt-4 border-t border-slate-800 flex justify-end gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setModalOpen(false)}
-                                    className="px-4 py-2.5 rounded-xl border border-slate-700 hover:border-slate-500 bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-all"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="px-5 py-2.5 rounded-xl bg-purple-650 hover:bg-purple-550 text-white font-bold text-xs transition-colors shadow-md shadow-purple-950/20"
-                                >
-                                    {currentProject ? 'Save Changes' : 'Create Record'}
-                                </button>
+                            <div className="pt-4 border-t border-[#1e2d45] flex justify-end gap-3">
+                                <button type="button" onClick={() => setModalOpen(false)} className="px-5 py-3 rounded-xl border border-[#1e2d45] hover:border-white/40 bg-transparent text-[#94a3b8] hover:text-white text-xs font-bold transition-all cursor-pointer">Cancel</button>
+                                <button type="submit" className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] hover:from-[#7c3aed] hover:to-[#db2777] text-white font-bold text-xs transition-colors shadow-md shadow-purple-500/20 cursor-pointer">{currentProject ? 'Save Changes' : 'Add Project'}</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             )}
 
+            {deleteConfirmId && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+                    <div className="w-full max-w-md p-6 rounded-2xl bg-[#0d1120] border border-[#1e2d45] shadow-2xl relative">
+                        <h3 className="font-outfit font-extrabold text-xl text-white mb-3">Delete Project</h3>
+                        <p className="text-[#94a3b8] text-sm mb-6">Are you sure you want to delete?</p>
+                        <div className="flex justify-end gap-3">
+                            <button onClick={() => setDeleteConfirmId(null)} className="px-5 py-2.5 rounded-xl border border-[#1e2d45] hover:border-white/30 bg-transparent text-[#94a3b8] hover:text-white text-xs font-bold transition-all cursor-pointer">Cancel</button>
+                            <button onClick={() => handleDelete(deleteConfirmId)} className="px-5 py-2.5 rounded-xl bg-[#dc2626] hover:bg-[#b91c1c] text-white font-bold text-xs transition-all shadow-md shadow-red-950/20 cursor-pointer">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {toast.show && (
+                <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-xl border shadow-2xl transition-all duration-300 ${toast.type === 'success' ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200 shadow-emerald-950/10' : 'bg-red-500/10 border-red-500/25 text-red-200 shadow-red-950/10'}`}>
+                    {toast.type === 'success' ? <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" /> : <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0" />}
+                    <span className="text-xs font-bold">{toast.message}</span>
+                    <button onClick={() => setToast(prev => ({ ...prev, show: false }))} className="ml-3 text-[#94a3b8] hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
+                </div>
+            )}
         </div>
     );
 }
