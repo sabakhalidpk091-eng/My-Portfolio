@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { FiGithub, FiExternalLink, FiLayers } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
@@ -27,29 +27,23 @@ export default function Projects() {
         fetchProjects();
     }, []);
 
-    // Helper to extract icons based on title or default
-    const getProjectIcon = (title) => {
-        const t = title.toLowerCase();
-        if (t.includes('counseling') || t.includes('career') || t.includes('education')) return '🎓';
-        if (t.includes('real estate') || t.includes('home') || t.includes('property')) return '🏠';
-        if (t.includes('commerce') || t.includes('store') || t.includes('shop')) return '🛒';
-        if (t.includes('crm') || t.includes('system') || t.includes('manage')) return '📊';
-        return '⭐'; // default
-    };
-
     return (
-        <div className="page active">
-            <div className="section">
-                <p className="section-label">My Work</p>
-                <h2 className="section-title">All <span>Projects</span></h2>
-                <p className="section-desc">Full-stack applications built with modern technologies — from concept to deployment.</p>
+        <div className="page">
+            <div className="page-title">
+                <h1>All Projects</h1>
+            </div>
+
+            <section>
+                <div className="sec-head">
+                    <p>Dynamic full-stack platforms built, configured, and deployed.</p>
+                </div>
 
                 {loading ? (
-                    <div className="projects-grid">
-                        <p style={{ color: 'var(--muted)', marginTop: '20px' }}>Loading projects...</p>
+                    <div className="proj-list">
+                        <p style={{ color: 'var(--muted)' }}>Loading projects...</p>
                     </div>
                 ) : (
-                    <div className="projects-grid">
+                    <div className="proj-list">
                         {projects.map((project) => {
                             const techStack = Array.isArray(project.tech_stack)
                                 ? project.tech_stack
@@ -58,37 +52,43 @@ export default function Projects() {
                                     : [];
 
                             return (
-                                <div key={project.id} className="project-card fade-in" style={{ opacity: 1, transform: 'none' }}>
-                                    <div className="project-img">{getProjectIcon(project.title)}</div>
-                                    <div className="project-body">
-                                        <div className="project-tags">
-                                            <span className="tag status-done">Active</span>
-                                        </div>
-                                        <div className="project-title">{project.title}</div>
-                                        <div className="project-desc">{project.description}</div>
-                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+                                <div key={project.id} className="proj-card2 text-only-card">
+                                    <div className="proj-body2" style={{ width: '100%' }}>
+                                        <div className="proj-year2">2026</div>
+                                        <h3>{project.title}</h3>
+                                        <p>{project.description}</p>
+                                        <div className="proj-tags2">
                                             {techStack.map((tech, idx) => (
-                                                <span key={idx} className="tag">{tech.trim()}</span>
+                                                <span key={idx} className="proj-tag2">{tech.trim()}</span>
                                             ))}
                                         </div>
-                                        <div className="project-links">
-                                            {project.github_link && (
-                                                <a className="btn-sm ghost" href={project.github_link} target="_blank" rel="noreferrer">⌥ GitHub</a>
-                                            )}
-                                            {project.demo_link && (
-                                                <a className="btn-sm filled" href={project.demo_link} target="_blank" rel="noreferrer">↗ Live Demo</a>
-                                            )}
+                                        <div className="proj-foot">
+                                            <span className="proj-hint" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                <FiLayers size={13} /> Full Stack Project
+                                            </span>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
+                                                {project.github_link && (
+                                                    <a className="proj-view font-semibold" href={project.github_link} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiGithub size={14} /> GitHub ↗
+                                                    </a>
+                                                )}
+                                                {project.demo_link && (
+                                                    <a className="proj-view font-bold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                                        <FiExternalLink size={14} /> Live Demo ↗
+                                                    </a>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
                         {projects.length === 0 && (
-                            <p style={{ color: 'var(--muted)', gridColumn: '1 / -1' }}>No projects found in the database.</p>
+                            <p style={{ color: 'var(--muted)' }}>No projects found in the database.</p>
                         )}
                     </div>
                 )}
-            </div>
+            </section>
         </div>
     );
 }

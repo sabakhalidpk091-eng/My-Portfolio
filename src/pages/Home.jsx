@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FiGithub, FiExternalLink, FiLayers, FiCpu, FiLayout, FiDatabase, FiTool, FiTerminal, FiCode, FiZap, FiServer, FiLock, FiLink, FiGitBranch, FiMonitor, FiBox, FiCloudLightning, FiTriangle, FiFileText } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
 export default function Home() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [deployTime, setDeployTime] = useState('');
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -25,128 +27,223 @@ export default function Home() {
         };
 
         fetchProjects();
+
+        // compiler time setup
+        setDeployTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     }, []);
 
-    const getProjectIcon = (title) => {
-        const t = title.toLowerCase();
-        if (t.includes('counseling') || t.includes('career') || t.includes('education')) return '🎓';
-        if (t.includes('real estate') || t.includes('home') || t.includes('property')) return '🏠';
-        if (t.includes('commerce') || t.includes('store') || t.includes('shop')) return '🛒';
-        if (t.includes('crm') || t.includes('system') || t.includes('manage')) return '📊';
-        return '⭐';
-    };
     return (
-        <div className="page active">
-            {/* HERO */}
-            <div className="hero">
-                <div className="hero-badge">✦ Open to Opportunities</div>
-                <h1 className="fade-in">Hi, I'm <span className="name">Saba Khalid</span></h1>
-                <p className="hero-sub fade-in">Full-Stack Web Developer &amp; BSIT Graduate</p>
-                <p className="hero-bio fade-in">
-                    Motivated developer skilled in building <strong>scalable, responsive</strong> web applications using
-                    <strong>React, FastAPI &amp; Django</strong>. Real-world experience through internships at
-                    <strong>Osho Technology</strong> &amp; <strong>FBR</strong>.
+        <div className="page">
+            {/* HERO (Centered Layout matching Saqib screenshot content layout for Saba Khalid) */}
+            <div className="hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '820px', margin: '0 auto', padding: '90px 20px 40px' }}>
+                <div className="eyebrow" style={{ display: 'inline-flex', justifyContent: 'center' }}>
+                    <span className="dot"></span> Available for freelance & remote roles
+                </div>
+                <h1 style={{ textAlign: 'center', fontSize: '3.6rem', fontWeight: 800, margin: '0 0 10px' }}>
+                    I'm <span className="accent">Saba Khalid</span>
+                </h1>
+                <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text)', marginBottom: '24px' }}>
+                    Full Stack Developer
+                </h2>
+                <p style={{ margin: '0 auto 30px', maxWidth: '720px', fontSize: '1.02rem', lineHeight: '1.85', color: 'var(--muted)' }}>
+                    Full-Stack Developer with a Bachelor's degree in Information Technology and hands-on experience building and deploying responsive web applications. Skilled in developing end-to-end solutions using React, FastAPI, Django, and Supabase. Passionate about designing secure, scalable, and user-focused web platforms that solve real-world problems while continuously exploring modern tech stacks.
                 </p>
-                <div className="hero-btns fade-in">
+                <div className="hero-btns" style={{ justifyContent: 'center', marginBottom: '24px' }}>
                     <Link className="btn-primary" to="/projects">View Projects →</Link>
-                    <Link className="btn-outline" to="/contact">Contact Me</Link>
+                    <Link className="btn-ghost" to="/contact">Get in Touch</Link>
                 </div>
-                <div className="hero-info fade-in">
-                    <span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
-                        sabakhalidpk091@gmail.com
-                    </span>
-                    <span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                        Islamabad, Pakistan
-                    </span>
-                    <span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" /></svg>
-                        BSIT 2021–2025
-                    </span>
+                <div className="hero-loc" style={{ justifyContent: 'center', marginBottom: '30px' }}>📍 Islamabad / Rawalpindi, Pakistan</div>
+
+                {/* Developer Skills Stack pills relocated under hero content */}
+                <div className="stack-pills" style={{ justifyContent: 'center', borderTop: 'none', padding: '10px 0 0', flexWrap: 'wrap', gap: '8px' }}>
+                    <span className="pill">React / Vite</span>
+                    <span className="pill">FastAPI</span>
+                    <span className="pill">Django</span>
+                    <span className="pill">Supabase</span>
+                    <span className="pill">PostgreSQL</span>
+                    <span className="pill">Tailwind CSS</span>
+                    <span className="pill">Vercel</span>
                 </div>
             </div>
 
-            <div className="divider"></div>
+            {/* SYSTEM ARCHITECTURE & ENGINEERING WORKFLOW */}
+            <section id="architecture">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Engineering Workflow</div>
+                    <h2>Application <span>Architecture Flow</span></h2>
+                    <p>How I structure, code, and deploy web applications to production.</p>
+                </div>
+                <div className="arch-grid">
+                    <div className="arch-card">
+                        <span className="arch-num">01 / CLIENT</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiLayout size={18} />
+                            </div>
+                            <h4>Frontend Interface</h4>
+                        </div>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Crafting modular interactive components using React and Vite. Designing with vanilla CSS/Tailwind layouts to build responsive user controls, state hooks, and routers.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">React.js</span>
+                            <span className="arch-tag">Vite</span>
+                            <span className="arch-tag">Tailwind CSS</span>
+                        </div>
+                    </div>
 
-            {/* STATS */}
-            <div className="section" style={{ paddingBottom: 0 }}>
-                <div className="stats-grid">
-                    <div className="stat-card fade-in">
-                        <div className="stat-number">4+</div>
-                        <div className="stat-label">Projects Completed</div>
+                    <div className="arch-card">
+                        <span className="arch-num">02 / ROUTER</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiCpu size={18} />
+                            </div>
+                            <h4>API Engine Layer</h4>
+                        </div>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Constructing clean REST APIs in Python. Supporting secure routers, CORS origins middleware, JSON validations, and high-performance server structures.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">FastAPI</span>
+                            <span className="arch-tag">Django</span>
+                            <span className="arch-tag">JWT Auth</span>
+                        </div>
                     </div>
-                    <div className="stat-card fade-in">
-                        <div className="stat-number">2</div>
-                        <div className="stat-label">Internships</div>
-                    </div>
-                    <div className="stat-card fade-in">
-                        <div className="stat-number">3+</div>
-                        <div className="stat-label">Years of Coding</div>
-                    </div>
-                    <div className="stat-card fade-in">
-                        <div className="stat-number">10+</div>
-                        <div className="stat-label">Technologies</div>
+
+                    <div className="arch-card">
+                        <span className="arch-num">03 / STORAGE</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiDatabase size={18} />
+                            </div>
+                            <h4>Database Management</h4>
+                        </div>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Structuring relational models, database indexes, and foreign key relations. Linking PostgreSQL servers through Supabase for fast data querying.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">PostgreSQL</span>
+                            <span className="arch-tag">Supabase</span>
+                            <span className="arch-tag">SQLAlchemy</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="divider" style={{ marginTop: '60px' }}></div>
 
-            {/* CORE SKILLS */}
-            <div className="section">
-                <p className="section-label">What I Work With</p>
-                <h2 className="section-title">Core <span>Skills</span></h2>
-                <p className="section-desc">Technologies I use to build full-stack web applications.</p>
-                <div className="skills-grid">
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">⚛️</div>
-                        <div className="skill-name">React.js</div>
-                        <div className="skill-type">Frontend</div>
+            {/* CARD‑STYLE SKILL STACKS */}
+            {/* Frontend Tech Cards */}
+            <section id="frontend-cards">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Frontend Technologies</div>
+                    <h2>Frontend <span>Stack</span></h2>
+                    <p>Core UI libraries and frameworks.</p>
+                </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCode size={24} /></div>
+                        <div className="tech-card-title">React</div>
                     </div>
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">🐍</div>
-                        <div className="skill-name">Django</div>
-                        <div className="skill-type">Backend</div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiZap size={24} /></div>
+                        <div className="tech-card-title">Vite</div>
                     </div>
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">⚡</div>
-                        <div className="skill-name">FastAPI</div>
-                        <div className="skill-type">Backend</div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiFileText size={24} /></div>
+                        <div className="tech-card-title">JavaScript</div>
                     </div>
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">🎨</div>
-                        <div className="skill-name">Tailwind CSS</div>
-                        <div className="skill-type">Frontend</div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLayout size={24} /></div>
+                        <div className="tech-card-title">Tailwind CSS</div>
                     </div>
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">🟢</div>
-                        <div className="skill-name">Supabase</div>
-                        <div className="skill-type">Database</div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCode size={24} /></div>
+                        <div className="tech-card-title">HTML5</div>
                     </div>
-                    <div className="skill-card fade-in">
-                        <div className="skill-icon">🔗</div>
-                        <div className="skill-name">REST APIs</div>
-                        <div className="skill-type">Integration</div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLayout size={24} /></div>
+                        <div className="tech-card-title">CSS3</div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div className="divider"></div>
+            {/* Backend Tech Cards */}
+            <section id="backend-cards">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Backend Technologies</div>
+                    <h2>Backend <span>Stack</span></h2>
+                    <p>Server‑side frameworks and APIs.</p>
+                </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiServer size={24} /></div>
+                        <div className="tech-card-title">Django</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiZap size={24} /></div>
+                        <div className="tech-card-title">FastAPI</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCpu size={24} /></div>
+                        <div className="tech-card-title">Python</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLink size={24} /></div>
+                        <div className="tech-card-title">REST API</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLock size={24} /></div>
+                        <div className="tech-card-title">JWT Auth</div>
+                    </div>
+                </div>
+            </section>
 
-            {/* FEATURED PROJECTS */}
-            <div className="section">
-                <p className="section-label">My Work</p>
-                <h2 className="section-title">Featured <span>Projects</span></h2>
-                <p className="section-desc">Real-world applications built with modern technologies.</p>
+            {/* Tools & Other Tech Cards */}
+            <section id="tools-cards">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Tools & Utilities</div>
+                    <h2>Tools <span>Stack</span></h2>
+                    <p>Productivity and DevOps tools.</p>
+                </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiGitBranch size={24} /></div>
+                        <div className="tech-card-title">Git</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiGithub size={24} /></div>
+                        <div className="tech-card-title">GitHub</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiMonitor size={24} /></div>
+                        <div className="tech-card-title">Cursor IDE</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiBox size={24} /></div>
+                        <div className="tech-card-title">AI Tools</div>
+                    </div>
+                </div>
+            </section>
+
+            {/* FEATURED PROJECTS (Image column / proj-thumb2 removed) */}
+
+
+
+
+            <section id="featured-projects">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">My Work</div>
+                    <h2>Featured <span>Projects</span></h2>
+                    <p>Real-world applications built with modern technologies.</p>
+                </div>
 
                 {loading ? (
-                    <div className="projects-grid">
+                    <div className="proj-list">
                         <p style={{ color: 'var(--muted)' }}>Loading projects...</p>
                     </div>
                 ) : (
-                    <div className="projects-grid">
-                        {projects.slice(0, 4).map((project) => {
+                    <div className="proj-list">
+                        {projects.slice(0, 3).map((project) => {
                             const techStack = Array.isArray(project.tech_stack)
                                 ? project.tech_stack
                                 : typeof project.tech_stack === 'string'
@@ -154,132 +251,47 @@ export default function Home() {
                                     : [];
 
                             return (
-                                <div key={project.id} className="project-card fade-in" style={{ opacity: 1, transform: 'none' }}>
-                                    <div className="project-img">{getProjectIcon(project.title)}</div>
-                                    <div className="project-body">
-                                        <div className="project-tags">
-                                            <span className="tag status-done">Active</span>
-                                        </div>
-                                        <div className="project-title">{project.title}</div>
-                                        <div className="project-desc">{project.description}</div>
-                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
-                                            {techStack.slice(0, 3).map((tech, idx) => (
-                                                <span key={idx} className="tag">{tech.trim()}</span>
+                                <div key={project.id} className="proj-card2 text-only-card">
+                                    <div className="proj-body2" style={{ width: '100%' }}>
+                                        <div className="proj-year2">2026</div>
+                                        <h3>{project.title}</h3>
+                                        <p>{project.description}</p>
+                                        <div className="proj-tags2">
+                                            {techStack.map((tech, idx) => (
+                                                <span key={idx} className="proj-tag2">{tech.trim()}</span>
                                             ))}
                                         </div>
-                                        <div className="project-links">
-                                            {project.github_link && (
-                                                <Link className="btn-sm ghost" to={project.github_link} target="_blank">⌥ GitHub</Link>
-                                            )}
-                                            {project.demo_link && (
-                                                <Link className="btn-sm filled" to={project.demo_link} target="_blank">↗ Live</Link>
-                                            )}
-                                            {!project.github_link && !project.demo_link && (
-                                                <Link className="btn-sm ghost" to="/projects">View Details</Link>
-                                            )}
+                                        <div className="proj-foot">
+                                            <span className="proj-hint" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                <FiLayers size={13} /> Full Stack System
+                                            </span>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
+                                                {project.github_link && (
+                                                    <a className="proj-view font-semibold" href={project.github_link} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiGithub size={14} /> GitHub ↗
+                                                    </a>
+                                                )}
+                                                {project.demo_link && (
+                                                    <a className="proj-view font-bold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiExternalLink size={14} /> Live Demo ↗
+                                                    </a>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
                         {projects.length === 0 && (
-                            <p style={{ color: 'var(--muted)', gridColumn: '1 / -1' }}>No projects available.</p>
+                            <p style={{ color: 'var(--muted)' }}>No projects available.</p>
                         )}
                     </div>
                 )}
-            </div>
+            </section>
 
-            <div className="divider"></div>
-
-            {/* EXPERIENCE HIGHLIGHTS */}
-            <div className="section">
-                <p className="section-label">Where I've Worked</p>
-                <h2 className="section-title">Work <span>Experience</span></h2>
-                <p className="section-desc">Real-world experience building production applications.</p>
-                <div className="timeline">
-                    <div className="timeline-item">
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-card">
-                            <div className="timeline-header">
-                                <div className="timeline-role">Web Developer Intern</div>
-                                <div className="timeline-period">Dec 2024 – Jun 2025</div>
-                            </div>
-                            <div className="timeline-company">Osho Technology</div>
-                            <ul className="timeline-list">
-                                <li>Contributing to live web development projects using React and Django</li>
-                                <li>Working on both frontend and backend tasks in a production environment</li>
-                                <li>Collaborating with the team on scalable and maintainable web solutions</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="timeline-item">
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-card">
-                            <div className="timeline-header">
-                                <div className="timeline-role">IT Intern</div>
-                                <div className="timeline-period">2024</div>
-                            </div>
-                            <div className="timeline-company">FBR – Federal Board of Revenue</div>
-                            <ul className="timeline-list">
-                                <li>Assisted in IT and software-related tasks within a government organization</li>
-                                <li>Supported database handling and system-related operations</li>
-                                <li>Gained exposure to real-world workflows and data management systems</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="divider"></div>
-
-            {/* CERTIFICATIONS */}
-            <div className="section">
-                <p className="section-label">Achievements</p>
-                <h2 className="section-title">Certifications &amp; <span>Awards</span></h2>
-                <p className="section-desc">Recognized training and professional development.</p>
-                <div className="certs-grid">
-                    <div className="cert-card fade-in">
-                        <div className="cert-icon">🏛️</div>
-                        <div>
-                            <div className="cert-name">FBR Internship Certificate</div>
-                            <div className="cert-year">Federal Board of Revenue · 2024</div>
-                        </div>
-                    </div>
-                    <div className="cert-card fade-in">
-                        <div className="cert-icon">🎓</div>
-                        <div>
-                            <div className="cert-name">Web Development Training</div>
-                            <div className="cert-year">NAVTTC Pakistan</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="divider"></div>
-
-            {/* LANGUAGES */}
-            <div className="section">
-                <p className="section-label">Communication</p>
-                <h2 className="section-title">Language <span>Skills</span></h2>
-                <p className="section-desc">Languages I communicate in professionally and personally.</p>
-                <div className="lang-grid">
-                    <div className="lang-card fade-in">
-                        <div className="lang-header">
-                            <div className="lang-name"><span className="lang-flag">🇬🇧</span> English</div>
-                            <div className="lang-level">Intermediate</div>
-                        </div>
-                        <div className="lang-bar-bg"><div className="lang-bar" style={{ width: '60%' }}></div></div>
-                        <div className="lang-desc">Professional communication, technical documentation, client correspondence and project discussions.</div>
-                    </div>
-                    <div className="lang-card fade-in">
-                        <div className="lang-header">
-                            <div className="lang-name"><span className="lang-flag">🇵🇰</span> Urdu</div>
-                            <div className="lang-level">Native</div>
-                        </div>
-                        <div className="lang-bar-bg"><div className="lang-bar" style={{ width: '100%' }}></div></div>
-                        <div className="lang-desc">Native speaker — fully fluent in reading, writing, and speaking. Primary language for daily communication.</div>
-                    </div>
-                </div>
+            <div className="cta-banner">
+                <h2>Ready for an <span className="accent">epic</span> build?</h2>
+                <Link className="btn-primary" to="/contact">Let's Build Something 🚀</Link>
             </div>
         </div>
     );
