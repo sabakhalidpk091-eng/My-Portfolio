@@ -3,32 +3,44 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
-        <>
-            <footer>
+        <footer>
+            <div className="footer-inner">
                 <div className="footer-brand">
-                    <div className="nav-logo" style={{ fontFamily: "'Fira Code', monospace", fontSize: "1rem", fontWeight: 500 }}>
-                        <span style={{ color: "var(--purple)" }}>SABA</span>.DEV
-                    </div>
-                    <p>Full-Stack Web Developer based in Islamabad, Pakistan. Building scalable web applications with React, Django &amp; FastAPI.</p>
+                    <Link className="logo" to="/" style={{ marginBottom: '14px' }}>
+                        <div className="logo-mark">SK</div>
+                        <div>
+                            <span>Saba Khalid</span>
+                            <span className="logo-sub">FULL STACK DEVELOPER</span>
+                        </div>
+                    </Link>
+                    <p style={{ marginTop: '14px' }}>Crafting production-feeling full-stack products with precision engineering and a full-stack skillset. Let's build something real together.</p>
+                    <span className="footer-badge">✓ Verified Developer</span>
                 </div>
+
                 <div className="footer-col">
-                    <h4>Quick Links</h4>
+                    <h5>Navigation</h5>
                     <Link to="/">Home</Link>
                     <Link to="/about">About</Link>
                     <Link to="/experience">Experience</Link>
                     <Link to="/projects">Projects</Link>
                     <Link to="/contact">Contact</Link>
                 </div>
+
                 <div className="footer-col">
-                    <h4>Contact</h4>
-                    <a href="mailto:sabakhalidpk091@gmail.com">sabakhalidpk091@gmail.com</a>
-                    <a href="tel:03482195468">03482195468</a>
-                    <a>Islamabad, Pakistan</a>
+                    <h5>Connect</h5>
+                    <a className="flink" href="mailto:sabakhalidpk091@gmail.com">✉️ Email</a>
+                    <a className="flink" href="tel:03482195468">📞 Contact</a>
+                    <a className="flink" href="#" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
+                    <a className="flink" href="#" target="_blank" rel="noreferrer">⌥ GitHub</a>
                 </div>
-            </footer>
-            <div className="footer-bottom">
-                <p>© 2025 Saba Khalid. Built with React &amp; FastAPI.</p>
             </div>
-        </>
+
+            <div className="footer-bottom">
+                <div className="footer-bottom-inner">
+                    <p>Made with ❤️ by Saba Khalid</p>
+                    <p>© 2026 Saba Khalid · Full Stack Developer</p>
+                </div>
+            </div>
+        </footer>
     );
 }
