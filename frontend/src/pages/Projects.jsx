@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FiGithub, FiExternalLink, FiLayers } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
@@ -26,15 +27,6 @@ export default function Projects() {
         fetchProjects();
     }, []);
 
-    const getProjectIcon = (title) => {
-        const t = title.toLowerCase();
-        if (t.includes('counseling') || t.includes('career') || t.includes('education')) return '🎓';
-        if (t.includes('real estate') || t.includes('home') || t.includes('property')) return '🏠';
-        if (t.includes('commerce') || t.includes('store') || t.includes('shop')) return '🛒';
-        if (t.includes('crm') || t.includes('system') || t.includes('manage')) return '📊';
-        return '⭐';
-    };
-
     return (
         <div className="page">
             <div className="page-title">
@@ -60,19 +52,8 @@ export default function Projects() {
                                     : [];
 
                             return (
-                                <div key={project.id} className="proj-card2">
-                                    <div className="proj-thumb2" style={{ background: 'linear-gradient(135deg, #0d1220, #1c2740)' }}>
-                                        <div className="thumb-top-row">
-                                            <span className="thumb-badge">Full Stack</span>
-                                            <span className="thumb-status">Live</span>
-                                        </div>
-                                        <div className="thumb-center">
-                                            <div className="em">{getProjectIcon(project.title)}</div>
-                                            <div className="nm">{project.title}</div>
-                                            <div className="sub">Web App</div>
-                                        </div>
-                                    </div>
-                                    <div className="proj-body2">
+                                <div key={project.id} className="proj-card2 text-only-card">
+                                    <div className="proj-body2" style={{ width: '100%' }}>
                                         <div className="proj-year2">2026</div>
                                         <h3>{project.title}</h3>
                                         <p>{project.description}</p>
@@ -82,13 +63,19 @@ export default function Projects() {
                                             ))}
                                         </div>
                                         <div className="proj-foot">
-                                            <span className="proj-hint">👆 Click to inspect links</span>
-                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                            <span className="proj-hint" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                <FiLayers size={13} /> Full Stack Project
+                                            </span>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
                                                 {project.github_link && (
-                                                    <a className="proj-view font-semibold" href={project.github_link} target="_blank" rel="noreferrer">⌥ GitHub ↗</a>
+                                                    <a className="proj-view font-semibold" href={project.github_link} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiGithub size={14} /> GitHub ↗
+                                                    </a>
                                                 )}
                                                 {project.demo_link && (
-                                                    <a className="proj-view font-semibold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)' }}>Live Demo ↗</a>
+                                                    <a className="proj-view font-bold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                                        <FiExternalLink size={14} /> Live Demo ↗
+                                                    </a>
                                                 )}
                                             </div>
                                         </div>

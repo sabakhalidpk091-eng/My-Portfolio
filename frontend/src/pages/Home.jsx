@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FiGithub, FiExternalLink, FiLayers } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
@@ -31,61 +32,34 @@ export default function Home() {
         setDeployTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     }, []);
 
-    const getProjectIcon = (title) => {
-        const t = title.toLowerCase();
-        if (t.includes('counseling') || t.includes('career') || t.includes('education')) return '🎓';
-        if (t.includes('real estate') || t.includes('home') || t.includes('property')) return '🏠';
-        if (t.includes('commerce') || t.includes('store') || t.includes('shop')) return '🛒';
-        if (t.includes('crm') || t.includes('system') || t.includes('manage')) return '📊';
-        return '⭐';
-    };
-
     return (
         <div className="page">
-            {/* HERO */}
-            <div className="hero">
-                <div>
-                    <div className="eyebrow">
-                        <span className="dot"></span> Available for freelance & remote roles
-                    </div>
-                    <h1>
-                        Building full-stack products that feel <span className="accent">production-ready</span>.
-                    </h1>
-                    <p>
-                        Motivated full-stack developer based in Islamabad/Rawalpindi, Pakistan. Skilled in shipping real-world web apps — from real estate platforms to CRMs and HR systems — using React, FastAPI, Django, and Supabase. I care about the details that make a demo feel like a real product.
-                    </p>
-                    <div className="hero-btns">
-                        <Link className="btn-primary" to="/projects">View Projects →</Link>
-                        <Link className="btn-ghost" to="/contact">Get in Touch</Link>
-                    </div>
-                    <div className="hero-loc">📍 Islamabad / Rawalpindi, Pakistan</div>
+            {/* HERO (Centered Layout, right side term/developer.json removed as requested) */}
+            <div className="hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '820px', margin: '0 auto', padding: '90px 20px 40px' }}>
+                <div className="eyebrow" style={{ display: 'inline-flex', justifyContent: 'center' }}>
+                    <span className="dot"></span> Available for freelance & remote roles
                 </div>
+                <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    Building full-stack products that feel <span className="accent">production-ready</span>.
+                </h1>
+                <p style={{ margin: '0 auto 24px', maxWidth: '640px', lineHeight: 1.8 }}>
+                    Motivated full-stack developer based in Islamabad/Rawalpindi, Pakistan. Skilled in shipping real-world web apps — from real estate platforms to CRMs and HR systems — using React, FastAPI, Django, and Supabase. I care about the details that make a demo feel like a real product.
+                </p>
+                <div className="hero-btns" style={{ justifyContent: 'center', marginBottom: '24px' }}>
+                    <Link className="btn-primary" to="/projects">View Projects →</Link>
+                    <Link className="btn-ghost" to="/contact">Get in Touch</Link>
+                </div>
+                <div className="hero-loc" style={{ justifyContent: 'center', marginBottom: '30px' }}>📍 Islamabad / Rawalpindi, Pakistan</div>
 
-                <div className="term">
-                    <div className="term-bar">
-                        <div className="term-dot" style={{ background: '#ef4444' }}></div>
-                        <div className="term-dot" style={{ background: '#f59e0b' }}></div>
-                        <div className="term-dot" style={{ background: '#22c55e' }}></div>
-                        <div className="term-title mono">developer.json</div>
-                    </div>
-                    <div className="term-body">
-                        <div><span className="c4">const</span> <span className="c2">developer</span> <span className="c4">=</span> {'{'}</div>
-                        <div>&nbsp;&nbsp;<span className="c1">name:</span> <span className="c3">"Saba Khalid"</span>,</div>
-                        <div>&nbsp;&nbsp;<span className="c1">role:</span> <span className="c3">"Full Stack Developer"</span>,</div>
-                        <div>&nbsp;&nbsp;<span className="c1">stack:</span> [<span className="c3">"React"</span>, <span className="c3">"FastAPI"</span>,</div>
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="c3">"Django"</span>, <span className="c3">"Supabase"</span>],</div>
-                        <div>&nbsp;&nbsp;<span className="c1">status:</span> <span className="cy">"open_to_work"</span><span className="term-cursor"></span></div>
-                        <div>{'};'}</div>
-                    </div>
-                    <div className="stack-pills">
-                        <span className="pill">React / Vite</span>
-                        <span className="pill">FastAPI</span>
-                        <span className="pill">Django</span>
-                        <span className="pill">Supabase</span>
-                        <span className="pill">PostgreSQL</span>
-                        <span className="pill">Tailwind CSS</span>
-                        <span className="pill">Vercel</span>
-                    </div>
+                {/* Developer Skills Stack pills relocated under hero content */}
+                <div className="stack-pills" style={{ justifyContent: 'center', borderTop: 'none', padding: '10px 0 0', flexWrap: 'wrap', gap: '8px' }}>
+                    <span className="pill">React / Vite</span>
+                    <span className="pill">FastAPI</span>
+                    <span className="pill">Django</span>
+                    <span className="pill">Supabase</span>
+                    <span className="pill">PostgreSQL</span>
+                    <span className="pill">Tailwind CSS</span>
+                    <span className="pill">Vercel</span>
                 </div>
             </div>
 
@@ -201,7 +175,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* FEATURED PROJECTS */}
+            {/* FEATURED PROJECTS (Image column / proj-thumb2 removed) */}
             <section id="featured-projects">
                 <div className="sec-head">
                     <div className="sec-eyebrow">My Work</div>
@@ -223,19 +197,8 @@ export default function Home() {
                                     : [];
 
                             return (
-                                <div key={project.id} className="proj-card2">
-                                    <div className="proj-thumb2" style={{ background: 'linear-gradient(135deg, #0d1220, #1c2740)' }}>
-                                        <div className="thumb-top-row">
-                                            <span className="thumb-badge">SaaS</span>
-                                            <span className="thumb-status">Live</span>
-                                        </div>
-                                        <div className="thumb-center">
-                                            <div className="em">{getProjectIcon(project.title)}</div>
-                                            <div className="nm">{project.title}</div>
-                                            <div className="sub">Project Deployment</div>
-                                        </div>
-                                    </div>
-                                    <div className="proj-body2">
+                                <div key={project.id} className="proj-card2 text-only-card">
+                                    <div className="proj-body2" style={{ width: '100%' }}>
                                         <div className="proj-year2">2026</div>
                                         <h3>{project.title}</h3>
                                         <p>{project.description}</p>
@@ -245,13 +208,19 @@ export default function Home() {
                                             ))}
                                         </div>
                                         <div className="proj-foot">
-                                            <span className="proj-hint">⚙️ Full Stack System</span>
-                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                            <span className="proj-hint" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                <FiLayers size={13} /> Full Stack System
+                                            </span>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
                                                 {project.github_link && (
-                                                    <a className="proj-view" href={project.github_link} target="_blank" rel="noreferrer">⌥ GitHub ↗</a>
+                                                    <a className="proj-view font-semibold" href={project.github_link} target="_blank" rel="noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiGithub size={14} /> GitHub ↗
+                                                    </a>
                                                 )}
                                                 {project.demo_link && (
-                                                    <a className="proj-view font-semibold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)' }}>View Live ↗</a>
+                                                    <a className="proj-view font-bold" href={project.demo_link} target="_blank" rel="noreferrer" style={{ color: 'var(--cyan)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                                        <FiExternalLink size={14} /> Live Demo ↗
+                                                    </a>
                                                 )}
                                             </div>
                                         </div>
