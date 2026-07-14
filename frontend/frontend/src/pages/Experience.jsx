@@ -20,7 +20,7 @@ export default function Experience() {
                         <div className="exp-side">
                             <div className="exp-date">Dec 2024 – Jun 2025</div>
                             <div className="exp-org" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <FiBriefcase size={14} style={{ color: 'var(--cyan)' }} /> ByteWrites
+                                <FiBriefcase size={14} style={{ color: 'var(--cyan)' }} /> Osho Technology
                             </div>
                         </div>
                         <div className="exp-main">

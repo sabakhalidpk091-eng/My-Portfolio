@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiMail, FiPhone, FiInfo, FiMessageSquare, FiUser, FiAtSign, FiTag, FiMessageCircle, FiCheckCircle, FiArrowUpRight, FiSmartphone } from 'react-icons/fi';
+import { FiMail, FiPhone, FiInfo, FiMessageSquare, FiUser, FiAtSign, FiTag, FiMessageCircle, FiCheckCircle } from 'react-icons/fi';
 
 export default function Contact() {
     const [success, setSuccess] = useState(false);
@@ -20,48 +20,41 @@ export default function Contact() {
     return (
         <div className="page">
             <div className="page-title">
-                <h1 style={{ textTransform: 'uppercase', letterSpacing: '0.05em' }}>Initiate Inquiry</h1>
+                <h1>Start a Conversation</h1>
             </div>
 
             <section>
                 <div className="contact-grid">
                     <div>
-                        <a href="mailto:sabakhalidpk091@gmail.com" className="contact-card" style={{ textDecoration: 'none', display: 'flex' }}>
+                        <div className="contact-card">
                             <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <FiMail size={16} />
                             </div>
-                            <div style={{ flexGrow: 1 }}>
+                            <div>
                                 <div className="contact-lbl">Email Me</div>
-                                <div className="contact-val" style={{ color: 'var(--text)' }}>sabakhalidpk091@gmail.com</div>
+                                <div className="contact-val">sabakhalidpk091@gmail.com</div>
                             </div>
-                            <div style={{ color: 'var(--dim)', display: 'flex', alignItems: 'center' }}>
-                                <FiArrowUpRight size={18} />
-                            </div>
-                        </a>
+                        </div>
 
-                        <a href="https://wa.me/923482195468" target="_blank" rel="noreferrer" className="contact-card" style={{ marginTop: '16px', textDecoration: 'none', display: 'flex' }}>
+                        <div className="contact-card" style={{ marginTop: '16px' }}>
                             <div className="contact-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <FiPhone size={16} />
                             </div>
-                            <div style={{ flexGrow: 1 }}>
-                                <div className="contact-lbl">WhatsApp</div>
-                                <div className="contact-val" style={{ color: 'var(--text)' }}>+92 348 2195468</div>
+                            <div>
+                                <div className="contact-lbl">WhatsApp / Phone</div>
+                                <div className="contact-val">03482195468</div>
                             </div>
-                            <div style={{ color: 'var(--dim)', display: 'flex', alignItems: 'center' }}>
-                                <FiArrowUpRight size={18} />
-                            </div>
-                        </a>
+                        </div>
 
                         <div className="avail-card" style={{ marginTop: '24px' }}>
-                            <h4 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.02em' }}>
-                                Open for Global Partnerships &amp; Remote Roles
+                            <h4 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <FiInfo size={16} style={{ color: 'var(--cyan)' }} />
+                                Open for Freelance &amp; Remote Roles
                             </h4>
-                            <p style={{ marginTop: '10px', fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
-                                Looking for a senior developer with strong data discipline and architectural vision? Let's connect.
-                            </p>
-                            <div className="avail-tag" style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '18px', background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '6px 14px', borderRadius: '20px', width: 'fit-content' }}>
-                                <FiSmartphone size={14} />
-                                <span style={{ textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: '0.05em' }}>Available Now</span>
+                            <p>Looking for a full-stack developer who ships production-quality work and sweats the details? Let's talk.</p>
+                            <div className="avail-tag" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--green)', display: 'inline-block' }}></span>
+                                Available Now
                             </div>
                         </div>
                     </div>
@@ -103,9 +96,8 @@ export default function Contact() {
                                 </label>
                                 <textarea placeholder="Tell me about your vision..." required></textarea>
                             </div>
-                            <button type="submit" className="send-btn" disabled={loading} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', cursor: 'pointer', fontWeight: '700' }}>
-                                {loading ? 'Dispatching Message...' : 'DISPATCH MESSAGE'}
-                                {!loading && <FiArrowUpRight size={16} />}
+                            <button type="submit" className="send-btn" disabled={loading}>
+                                {loading ? 'Dispatching Message...' : 'Dispatch Message →'}
                             </button>
                         </form>
                     </div>

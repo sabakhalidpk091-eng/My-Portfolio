@@ -291,7 +291,7 @@ export default function Home() {
 
             <div className="cta-banner">
                 <h2>Ready for an <span className="accent">epic</span> build?</h2>
-                <Link className="btn-primary" to="/contact">Let's Build Something </Link>
+                <Link className="btn-primary" to="/contact">Let's Build Something 🚀</Link>
             </div>
         </div>
     );
