@@ -189,97 +189,105 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* CAPSULE SKILLS (New tech pill design) */}
-            <section id="tech-capsules">
+            {/* CARD‑STYLE SKILL STACKS */}
+            {/* Frontend Tech Cards */}
+            <section id="frontend-cards">
                 <div className="sec-head">
-                    <div className="sec-eyebrow">My Technologies & Expertise</div>
-                    <h2>Tech <span>Arsenal</span></h2>
-                    <p>Technologies and tools I work with daily.</p>
+                    <div className="sec-eyebrow">Frontend Technologies</div>
+                    <h2>Frontend <span>Stack</span></h2>
+                    <p>Core UI libraries and frameworks.</p>
                 </div>
-
-                <div className="capsule-category">
-                    <h4 className="capsule-cat-title">Frontend</h4>
-                    <div className="capsule-row">
-                        <div className="tech-capsule capsule-glow-green">
-                            <FiCode size={16} /><span>React</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiZap size={16} /><span>Vite</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiFileText size={16} /><span>JavaScript</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiLayout size={16} /><span>Tailwind CSS</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiCode size={16} /><span>HTML5</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiLayout size={16} /><span>CSS3</span>
-                        </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCode size={24} /></div>
+                        <div className="tech-card-title">React</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiZap size={24} /></div>
+                        <div className="tech-card-title">Vite</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiFileText size={24} /></div>
+                        <div className="tech-card-title">JavaScript</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLayout size={24} /></div>
+                        <div className="tech-card-title">Tailwind CSS</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCode size={24} /></div>
+                        <div className="tech-card-title">HTML5</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLayout size={24} /></div>
+                        <div className="tech-card-title">CSS3</div>
                     </div>
                 </div>
+            </section>
 
-                <div className="capsule-category">
-                    <h4 className="capsule-cat-title">Backend</h4>
-                    <div className="capsule-row">
-                        <div className="tech-capsule capsule-glow-indigo">
-                            <FiServer size={16} /><span>Django</span>
-                        </div>
-                        <div className="tech-capsule capsule-glow-green">
-                            <FiZap size={16} /><span>FastAPI</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiCpu size={16} /><span>Python</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiLink size={16} /><span>REST API</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiLock size={16} /><span>JWT Auth</span>
-                        </div>
+            {/* Backend Tech Cards */}
+            <section id="backend-cards">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Backend Technologies</div>
+                    <h2>Backend <span>Stack</span></h2>
+                    <p>Server‑side frameworks and APIs.</p>
+                </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiServer size={24} /></div>
+                        <div className="tech-card-title">Django</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiZap size={24} /></div>
+                        <div className="tech-card-title">FastAPI</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiCpu size={24} /></div>
+                        <div className="tech-card-title">Python</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLink size={24} /></div>
+                        <div className="tech-card-title">REST API</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiLock size={24} /></div>
+                        <div className="tech-card-title">JWT Auth</div>
                     </div>
                 </div>
+            </section>
 
-                <div className="capsule-category">
-                    <h4 className="capsule-cat-title">Database & Cloud</h4>
-                    <div className="capsule-row">
-                        <div className="tech-capsule capsule-glow-green">
-                            <FiDatabase size={16} /><span>PostgreSQL</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiCloudLightning size={16} /><span>Supabase</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiTriangle size={16} /><span>Vercel</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiLink size={16} /><span>SQLAlchemy</span>
-                        </div>
-                    </div>
+            {/* Tools & Other Tech Cards */}
+            <section id="tools-cards">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Tools & Utilities</div>
+                    <h2>Tools <span>Stack</span></h2>
+                    <p>Productivity and DevOps tools.</p>
                 </div>
-
-                <div className="capsule-category">
-                    <h4 className="capsule-cat-title">Tools & Other</h4>
-                    <div className="capsule-row">
-                        <div className="tech-capsule">
-                            <FiGitBranch size={16} /><span>Git</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiGithub size={16} /><span>GitHub</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiMonitor size={16} /><span>Cursor IDE</span>
-                        </div>
-                        <div className="tech-capsule">
-                            <FiBox size={16} /><span>AI Tools</span>
-                        </div>
+                <div className="cards-grid">
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiGitBranch size={24} /></div>
+                        <div className="tech-card-title">Git</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiGithub size={24} /></div>
+                        <div className="tech-card-title">GitHub</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiMonitor size={24} /></div>
+                        <div className="tech-card-title">Cursor IDE</div>
+                    </div>
+                    <div className="tech-card">
+                        <div className="tech-card-icon"><FiBox size={24} /></div>
+                        <div className="tech-card-title">AI Tools</div>
                     </div>
                 </div>
             </section>
 
             {/* FEATURED PROJECTS (Image column / proj-thumb2 removed) */}
+
+
+
+
             <section id="featured-projects">
                 <div className="sec-head">
                     <div className="sec-eyebrow">My Work</div>
