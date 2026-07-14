@@ -99,9 +99,80 @@ body::before {
 }
 
 body.light-preview::before {
-  background-image:
-    radial-gradient(circle at 15% 8%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 20%, rgba(192, 132, 252, 0.06) 0%, transparent 40%);
+  background-image: none;
+}
+
+body.light-preview nav {
+  background: rgba(255, 255, 255, 0.88);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+body.light-preview .nav-links.mobile-active {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-preview .term {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+body.light-preview .eyebrow {
+  border-color: rgba(5, 150, 105, 0.3);
+  background: rgba(5, 150, 105, 0.06);
+}
+
+body.light-preview .sec-eyebrow {
+  border-color: rgba(5, 150, 105, 0.3);
+  background: rgba(5, 150, 105, 0.06);
+}
+
+body.light-preview .arch-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+body.light-preview .tech-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+body.light-preview .tech-card:hover {
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.1);
+}
+
+body.light-preview .proj-card2 {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+body.light-preview .cta-banner {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+body.light-preview .contact-card,
+body.light-preview .avail-card,
+body.light-preview .form-card {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+body.light-preview .footer-badge {
+  border-color: rgba(5, 150, 105, 0.3);
+  background: rgba(5, 150, 105, 0.06);
+}
+
+body.light-preview .logo-mark {
+  color: #ffffff;
+}
+
+body.light-preview .nav-cta {
+  color: #ffffff;
+}
+
+body.light-preview .btn-primary {
+  color: #ffffff;
+}
+
+body.light-preview .send-btn {
+  color: #ffffff;
 }
 
 .wrap {
@@ -121,10 +192,6 @@ nav {
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   transition: background-color 0.3s, border-color 0.3s;
-}
-
-body.light-preview nav {
-  background: rgba(255, 255, 255, 0.85);
 }
 
 .nav-inner {
