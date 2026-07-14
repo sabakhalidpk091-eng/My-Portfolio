@@ -1677,6 +1677,23 @@ section {
 }
 
 /* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 28px;
+}
+
+@media(max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px 20px;
+  }
+}
+
 .contact-card {
   background: var(--card);
   border: 1px solid var(--border);
