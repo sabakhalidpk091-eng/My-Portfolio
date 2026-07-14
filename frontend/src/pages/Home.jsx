@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiGithub, FiExternalLink, FiLayers } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiLayers, FiCpu, FiLayout, FiDatabase, FiTool, FiTerminal } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
@@ -34,16 +34,19 @@ export default function Home() {
 
     return (
         <div className="page">
-            {/* HERO (Centered Layout, right side term/developer.json removed as requested) */}
+            {/* HERO (Centered Layout matching Saqib screenshot content layout for Saba Khalid) */}
             <div className="hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '820px', margin: '0 auto', padding: '90px 20px 40px' }}>
                 <div className="eyebrow" style={{ display: 'inline-flex', justifyContent: 'center' }}>
                     <span className="dot"></span> Available for freelance & remote roles
                 </div>
-                <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>
-                    Building full-stack products that feel <span className="accent">production-ready</span>.
+                <h1 style={{ textAlign: 'center', fontSize: '3.6rem', fontWeight: 800, margin: '0 0 10px' }}>
+                    I'm <span className="accent">Saba Khalid</span>
                 </h1>
-                <p style={{ margin: '0 auto 24px', maxWidth: '640px', lineHeight: 1.8 }}>
-                    Motivated full-stack developer based in Islamabad/Rawalpindi, Pakistan. Skilled in shipping real-world web apps — from real estate platforms to CRMs and HR systems — using React, FastAPI, Django, and Supabase. I care about the details that make a demo feel like a real product.
+                <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text)', marginBottom: '24px' }}>
+                    Full Stack Developer
+                </h2>
+                <p style={{ margin: '0 auto 30px', maxWidth: '720px', fontSize: '1.02rem', lineHeight: '1.85', color: 'var(--muted)' }}>
+                    Full-Stack Developer with a Bachelor's degree in Information Technology and hands-on experience building and deploying responsive web applications. Skilled in developing end-to-end solutions using React, FastAPI, Django, and Supabase. Passionate about designing secure, scalable, and user-focused web platforms that solve real-world problems while continuously exploring modern tech stacks.
                 </p>
                 <div className="hero-btns" style={{ justifyContent: 'center', marginBottom: '24px' }}>
                     <Link className="btn-primary" to="/projects">View Projects →</Link>
@@ -66,7 +69,10 @@ export default function Home() {
             {/* STUDIO WORKSPACE */}
             <section id="studio">
                 <div className="studio-head">
-                    <h2>🖥️ Studio Workspace</h2>
+                    <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <FiTerminal size={20} style={{ color: 'var(--cyan)' }} />
+                        Studio Workspace
+                    </h2>
                     <div className="studio-live">
                         <span className="bar"><span></span><span></span><span></span></span> Live Build
                     </div>
@@ -105,18 +111,27 @@ export default function Home() {
                             COMPILER TERMINAL
                         </div>
                         <div className="compile-row">
-                            <div className="compile-icon">📦</div>
+                            <div className="compile-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <FiLayers size={16} />
+                            </div>
                             <div className="compile-txt"><b>Compiling Project</b><span>...</span></div>
                         </div>
                         <div className="wave-box">
                             <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
                         </div>
                         <div className="deploy-row">
-                            <div className="dtop"><span className="di">☁️</span> Cloud Deployment</div>
+                            <div className="dtop">
+                                <span className="di" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <FiDatabase size={15} />
+                                </span>
+                                Cloud Deployment
+                            </div>
                             <div className="deploy-line"></div>
                         </div>
                         <div className="success-block">
-                            <div className="rocket">🚀</div>
+                            <div className="rocket" style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '10px' }}>
+                                <FiCpu size={26} style={{ color: 'var(--green)' }} />
+                            </div>
                             <div className="stxt">SUCCESS</div>
                             <div className="stime">Service deployed at {deployTime}</div>
                         </div>
@@ -133,7 +148,9 @@ export default function Home() {
                 </div>
                 <div className="skills-grid">
                     <div className="skill-card">
-                        <div className="skill-icon cyan">🎨</div>
+                        <div className="skill-icon cyan" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FiLayout size={18} />
+                        </div>
                         <h4>Frontend</h4>
                         <div className="skill-list">
                             <span>React.js / Vite</span>
@@ -143,7 +160,9 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="skill-card">
-                        <div className="skill-icon purple">⚙️</div>
+                        <div className="skill-icon purple" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FiCpu size={18} />
+                        </div>
                         <h4>Backend</h4>
                         <div className="skill-list">
                             <span>Django</span>
@@ -153,7 +172,9 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="skill-card">
-                        <div className="skill-icon cyan">🗄️</div>
+                        <div className="skill-icon cyan" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FiDatabase size={18} />
+                        </div>
                         <h4>Database &amp; Cloud</h4>
                         <div className="skill-list">
                             <span>Supabase</span>
@@ -163,7 +184,9 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="skill-card">
-                        <div className="skill-icon purple">🛠️</div>
+                        <div className="skill-icon purple" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FiTool size={18} />
+                        </div>
                         <h4>Tools / Other</h4>
                         <div className="skill-list">
                             <span>Git &amp; GitHub</span>

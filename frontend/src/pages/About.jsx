@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiShield, FiBookOpen, FiAward, FiGlobe, FiStar } from 'react-icons/fi';
 
 export default function About() {
     return (
@@ -9,24 +10,29 @@ export default function About() {
 
             <section>
                 <div className="philo-card">
-                    <h3><span className="ic">🛡️</span> Philosophy &amp; Focus</h3>
+                    <h3 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span className="ic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <FiShield size={16} />
+                        </span>
+                        Philosophy &amp; Focus
+                    </h3>
                     <p>
                         Detail-oriented BSIT graduate with strong expertise in full-stack web development. Experienced in building scalable, responsive, and user-focused web applications. I plan projects precisely before implementation, then sweat the details — real database flows, working token-based authentication, and mobile-responsive UI layouts — to match real-world product specifications.
                     </p>
                     <div className="tag-cloud">
-                        <span className="tag-pill"><span className="star">★</span> React.js</span>
-                        <span className="tag-pill"><span className="star">★</span> Vite</span>
-                        <span className="tag-pill"><span className="star">★</span> JavaScript (ES6+)</span>
-                        <span className="tag-pill"><span className="star">★</span> Tailwind CSS</span>
-                        <span className="tag-pill"><span className="star">★</span> Django</span>
-                        <span className="tag-pill"><span className="star">★</span> FastAPI</span>
-                        <span className="tag-pill"><span className="star">★</span> REST API Design</span>
-                        <span className="tag-pill"><span className="star">★</span> JWT Authentication</span>
-                        <span className="tag-pill"><span className="star">★</span> Supabase</span>
-                        <span className="tag-pill"><span className="star">★</span> PostgreSQL</span>
-                        <span className="tag-pill"><span className="star">★</span> Git &amp; GitHub</span>
-                        <span className="tag-pill"><span className="star">★</span> Responsive Web Design</span>
-                        <span className="tag-pill"><span className="star">★</span> Debugging Tools</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> React.js</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Vite</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> JavaScript (ES6+)</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Tailwind CSS</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Django</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> FastAPI</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> REST API Design</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> JWT Authentication</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Supabase</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> PostgreSQL</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Git &amp; GitHub</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Responsive Web Design</span>
+                        <span className="tag-pill"><FiStar size={11} className="star" /> Debugging Tools</span>
                     </div>
                 </div>
             </section>
@@ -37,8 +43,10 @@ export default function About() {
                     <div className="sec-eyebrow">Academic</div>
                     <h2>Education</h2>
                 </div>
-                <div className="edu-card">
-                    <div className="edu-icon">📖</div>
+                <div className="edu-card" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                    <div className="edu-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <FiBookOpen size={20} />
+                    </div>
                     <div>
                         <h4>BS Information Technology</h4>
                         <div className="sub">Rawalpindi Women University</div>
@@ -55,8 +63,10 @@ export default function About() {
                 </div>
                 <div className="cert-grid">
                     <div className="cert-card">
-                        <div className="top">
-                            <div className="cert-icon">🏛️</div>
+                        <div className="top" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '12px' }}>
+                            <div className="cert-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <FiAward size={18} />
+                            </div>
                             <div>
                                 <h4>FBR Internship Certificate</h4>
                                 <div className="org">Federal Board of Revenue</div>
@@ -65,8 +75,10 @@ export default function About() {
                         <span className="cert-status done">Completed</span>
                     </div>
                     <div className="cert-card">
-                        <div className="top">
-                            <div className="cert-icon">🎓</div>
+                        <div className="top" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '12px' }}>
+                            <div className="cert-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <FiAward size={18} />
+                            </div>
                             <div>
                                 <h4>Web Development Training</h4>
                                 <div className="org">NAVTTC Pakistan</div>
@@ -85,8 +97,10 @@ export default function About() {
                 </div>
                 <div className="lang-grid">
                     <div className="lang-card">
-                        <div className="lang-top">
-                            <div className="lang-icon">🇬🇧</div>
+                        <div className="lang-top" style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '18px' }}>
+                            <div className="lang-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <FiGlobe size={20} />
+                            </div>
                             <h4>English</h4>
                         </div>
                         <div className="lang-meta"><span>Intermediate / Professional</span><b>85%</b></div>
@@ -94,8 +108,10 @@ export default function About() {
                         <p className="lang-desc">Technical documentation, client communications, and codebase explanations.</p>
                     </div>
                     <div className="lang-card">
-                        <div className="lang-top">
-                            <div className="lang-icon">🇵🇰</div>
+                        <div className="lang-top" style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '18px' }}>
+                            <div className="lang-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <FiGlobe size={20} />
+                            </div>
                             <h4>Urdu</h4>
                         </div>
                         <div className="lang-meta"><span>Native / Fluent</span><b>100%</b></div>
