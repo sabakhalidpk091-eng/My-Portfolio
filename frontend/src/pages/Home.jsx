@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiGithub, FiExternalLink, FiLayers, FiCpu, FiLayout, FiDatabase, FiTool, FiTerminal } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiLayers, FiCpu, FiLayout, FiDatabase, FiTool, FiTerminal, FiCode, FiZap, FiServer, FiLock, FiLink, FiGitBranch, FiMonitor, FiBox, FiCloudLightning, FiTriangle, FiFileText } from 'react-icons/fi';
 
 const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000');
 
@@ -184,6 +184,96 @@ export default function Home() {
                             <span>Cursor IDE</span>
                             <span>Debugging &amp; AI Tools</span>
                             <span>MS Office suite</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CAPSULE SKILLS (New tech pill design) */}
+            <section id="tech-capsules">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">My Technologies & Expertise</div>
+                    <h2>Tech <span>Arsenal</span></h2>
+                    <p>Technologies and tools I work with daily.</p>
+                </div>
+
+                <div className="capsule-category">
+                    <h4 className="capsule-cat-title">Frontend</h4>
+                    <div className="capsule-row">
+                        <div className="tech-capsule capsule-glow-green">
+                            <FiCode size={16} /><span>React</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiZap size={16} /><span>Vite</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiFileText size={16} /><span>JavaScript</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiLayout size={16} /><span>Tailwind CSS</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiCode size={16} /><span>HTML5</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiLayout size={16} /><span>CSS3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="capsule-category">
+                    <h4 className="capsule-cat-title">Backend</h4>
+                    <div className="capsule-row">
+                        <div className="tech-capsule capsule-glow-indigo">
+                            <FiServer size={16} /><span>Django</span>
+                        </div>
+                        <div className="tech-capsule capsule-glow-green">
+                            <FiZap size={16} /><span>FastAPI</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiCpu size={16} /><span>Python</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiLink size={16} /><span>REST API</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiLock size={16} /><span>JWT Auth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="capsule-category">
+                    <h4 className="capsule-cat-title">Database & Cloud</h4>
+                    <div className="capsule-row">
+                        <div className="tech-capsule capsule-glow-green">
+                            <FiDatabase size={16} /><span>PostgreSQL</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiCloudLightning size={16} /><span>Supabase</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiTriangle size={16} /><span>Vercel</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiLink size={16} /><span>SQLAlchemy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="capsule-category">
+                    <h4 className="capsule-cat-title">Tools & Other</h4>
+                    <div className="capsule-row">
+                        <div className="tech-capsule">
+                            <FiGitBranch size={16} /><span>Git</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiGithub size={16} /><span>GitHub</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiMonitor size={16} /><span>Cursor IDE</span>
+                        </div>
+                        <div className="tech-capsule">
+                            <FiBox size={16} /><span>AI Tools</span>
                         </div>
                     </div>
                 </div>

@@ -1964,3 +1964,78 @@ footer {
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
+
+/* CAPSULE SKILLS SECTION */
+.capsule-category {
+  margin-bottom: 32px;
+}
+
+.capsule-cat-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+.capsule-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tech-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 50px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: default;
+  transition: all 0.25s ease;
+}
+
+.tech-capsule svg {
+  color: var(--dim);
+  transition: color 0.25s;
+}
+
+.tech-capsule:hover {
+  background: var(--card2);
+  border-color: var(--cyan);
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.12);
+}
+
+.tech-capsule:hover svg {
+  color: var(--cyan);
+}
+
+/* Highlighted capsules with permanent glow */
+.capsule-glow-green {
+  border-color: var(--cyan);
+  color: var(--text);
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.15), inset 0 0 12px rgba(16, 185, 129, 0.04);
+}
+
+.capsule-glow-green svg {
+  color: var(--cyan);
+}
+
+.capsule-glow-indigo {
+  border-color: var(--purple);
+  color: var(--text);
+  box-shadow: 0 0 18px rgba(99, 102, 241, 0.15), inset 0 0 12px rgba(99, 102, 241, 0.04);
+}
+
+.capsule-glow-indigo svg {
+  color: var(--purple);
+}
