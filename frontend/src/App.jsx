@@ -22,7 +22,7 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f8fafc] dark:bg-[#0a0f1d] text-slate-900 dark:text-slate-100 selection:bg-purple-500 selection:text-white transition-colors duration-300">
+    <div className="flex flex-col min-h-screen transition-colors duration-300">
       {!isAdminRoute && <Navbar />}
       <div className="flex-grow">
         <Routes>
