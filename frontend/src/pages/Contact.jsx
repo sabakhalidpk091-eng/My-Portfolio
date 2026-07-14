@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiMail, FiPhone, FiInfo, FiMessageSquare, FiUser, FiAtSign, FiTag, FiMessageCircle, FiCheckCircle, FiArrowUpRight, FiSmartphone } from 'react-icons/fi';
+import { FiMail, FiPhone, FiInfo, FiMessageSquare, FiUser, FiAtSign, FiTag, FiMessageCircle, FiCheckCircle, FiArrowUpRight, FiSmartphone, FiHeart } from 'react-icons/fi';
 
 export default function Contact() {
     const [success, setSuccess] = useState(false);
@@ -63,6 +63,10 @@ export default function Contact() {
                                 <FiSmartphone size={14} />
                                 <span style={{ textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: '0.05em' }}>Available Now</span>
                             </div>
+                        </div>
+
+                        <div className="synergy-badge">
+                            <FiHeart style={{ color: '#50c4df' }} /> Synergy
                         </div>
                     </div>
 

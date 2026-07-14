@@ -1686,55 +1686,57 @@ section {
   display: flex;
   align-items: center;
   gap: 16px;
-  transition: border-color .2s;
+  transition: all .25s ease;
 }
 
 .contact-card:hover {
-  border-color: rgba(34, 211, 238, 0.3);
+  border-color: #50c4df;
+  transform: translateY(-2px);
 }
 
 .contact-icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(34, 211, 238, 0.1);
+  background: var(--bg2);
   color: var(--cyan2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   flex-shrink: 0;
 }
 
 .contact-lbl {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--dim);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 3px;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
 }
 
 .contact-val {
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   font-weight: 700;
+  color: var(--text);
   word-break: break-all;
 }
 
 .avail-card {
-  background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(139, 92, 246, 0.06));
-  border: 1px solid rgba(34, 211, 238, 0.2);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.06), rgba(139, 92, 246, 0.04));
+  border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 24px;
+  padding: 26px;
 }
 
 .avail-card h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
 .avail-card p {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: var(--muted);
   line-height: 1.7;
 }
@@ -1744,7 +1746,7 @@ section {
   align-items: center;
   gap: 6px;
   margin-top: 14px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--green);
 }
@@ -1764,7 +1766,7 @@ section {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--purple2);
+  color: #50c4df;
   margin-bottom: 22px;
 }
 
@@ -1782,35 +1784,39 @@ section {
 }
 
 .f-field label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.f-field label svg {
+  color: #50c4df;
 }
 
 .f-field input,
 .f-field textarea {
   width: 100%;
-  background: var(--bg2);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 11px 14px;
+  padding: 12px 14px;
   color: var(--text);
   font-size: 0.86rem;
   font-family: inherit;
   outline: none;
-  transition: border-color .2s;
+  transition: all .2s;
 }
 
 .f-field input:focus,
 .f-field textarea:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+  border-color: #50c4df;
+  box-shadow: 0 0 0 3px rgba(80, 196, 223, 0.15);
 }
 
 .f-field textarea {
@@ -1827,18 +1833,39 @@ section {
   padding: 14px;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--cyan), #0ea5c9);
-  color: #031018;
+  background: #50c4df;
+  color: #05070c;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   font-family: inherit;
   transition: all .2s;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(80, 196, 223, 0.35);
 }
 
 .send-btn:hover {
-  box-shadow: 0 10px 30px rgba(34, 211, 238, 0.3);
+  background: #3eb5d0;
+  box-shadow: 0 6px 24px rgba(80, 196, 223, 0.45);
+  transform: translateY(-1px);
+}
+
+/* SYNERGY BADGE */
+.synergy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  margin-top: 40px;
 }
 
 /* FOOTER */
