@@ -72,7 +72,7 @@ export default function Navbar() {
                     </button>
                     <Link className="nav-cta" to="/contact">
                         <FiSend size={14} style={{ marginRight: '6px' }} />
-                        Hire
+                        Let's Build
                     </Link>
                 </div>
             </div>

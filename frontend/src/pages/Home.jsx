@@ -66,74 +66,65 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* STUDIO WORKSPACE */}
-            <section id="studio">
-                <div className="studio-head">
-                    <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <FiTerminal size={20} style={{ color: 'var(--cyan)' }} />
-                        Studio Workspace
-                    </h2>
-                    <div className="studio-live">
-                        <span className="bar"><span></span><span></span><span></span></span> Live Build
-                    </div>
+            {/* SYSTEM ARCHITECTURE & ENGINEERING WORKFLOW */}
+            <section id="architecture">
+                <div className="sec-head">
+                    <div className="sec-eyebrow">Engineering Workflow</div>
+                    <h2>Application <span>Architecture Flow</span></h2>
+                    <p>How I structure, code, and deploy web applications to production.</p>
                 </div>
-                <div className="studio-grid">
-                    <div className="editor-pane">
-                        <div className="editor-tabs">
-                            <div className="editor-tab active">📄 portfolio.tsx</div>
-                            <div className="editor-tab">📄 api.py</div>
+                <div className="arch-grid">
+                    <div className="arch-card">
+                        <span className="arch-num">01 / CLIENT</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiLayout size={18} />
+                            </div>
+                            <h4>Frontend Interface</h4>
                         </div>
-                        <div className="editor-code">
-                            <div className="ln"><span className="lnum">1</span><span><span className="k1">import</span> <span className="k4">React</span> <span className="k1">from</span> <span className="k3">"react"</span>;</span></div>
-                            <div className="ln"><span className="lnum">2</span><span></span></div>
-                            <div className="ln"><span className="lnum">3</span><span><span className="k1">export const</span> <span className="k2">Developer</span> <span className="k4">{"= () =>"}</span> {'{'}</span></div>
-                            <div className="ln"><span className="lnum">4</span><span>&nbsp;&nbsp;<span className="k1">const</span> <span className="k2">skills</span> <span className="k4">=</span> [</span></div>
-                            <div className="ln"><span className="lnum">5</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span className="k3">"React.js"</span>, <span className="k3">"FastAPI"</span>,</span></div>
-                            <div className="ln"><span className="lnum">6</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span className="k3">"Django"</span>, <span className="k3">"Supabase"</span></span></div>
-                            <div className="ln"><span className="lnum">7</span><span>&nbsp;&nbsp;];</span></div>
-                            <div className="ln"><span className="lnum">8</span><span>&nbsp;&nbsp;<span className="k1">return</span> (</span></div>
-                            <div className="ln"><span className="lnum">9</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span className="k5">&lt;App</span> <span className="k4">available</span><span className="k4">=</span>{'{'}<span className="k1">true</span>{'}'} <span className="k5">/&gt;</span></span></div>
-                            <div className="ln"><span className="lnum">10</span><span>&nbsp;&nbsp;)<span className="kcursor"></span></span></div>
-                            <div className="ln"><span className="lnum">11</span><span>{'}'}</span></div>
-                        </div>
-                        <div className="editor-foot">
-                            <span>FOCUS: <b style={{ color: 'var(--muted)' }}>FULL STACK DEVELOPMENT</b></span>
-                            <span>UTF-8 · REACT MAIN</span>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Crafting modular interactive components using React and Vite. Designing with vanilla CSS/Tailwind layouts to build responsive user controls, state hooks, and routers.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">React.js</span>
+                            <span className="arch-tag">Vite</span>
+                            <span className="arch-tag">Tailwind CSS</span>
                         </div>
                     </div>
-                    <div className="term-pane">
-                        <div className="term-pane-head">
-                            <span className="dots">
-                                <span style={{ background: '#ef4444' }}></span>
-                                <span style={{ background: '#f59e0b' }}></span>
-                                <span style={{ background: '#22c55e' }}></span>
-                            </span>
-                            COMPILER TERMINAL
-                        </div>
-                        <div className="compile-row">
-                            <div className="compile-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <FiLayers size={16} />
+
+                    <div className="arch-card">
+                        <span className="arch-num">02 / ROUTER</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiCpu size={18} />
                             </div>
-                            <div className="compile-txt"><b>Compiling Project</b><span>...</span></div>
+                            <h4>API Engine Layer</h4>
                         </div>
-                        <div className="wave-box">
-                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Constructing clean REST APIs in Python. Supporting secure routers, CORS origins middleware, JSON validations, and high-performance server structures.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">FastAPI</span>
+                            <span className="arch-tag">Django</span>
+                            <span className="arch-tag">JWT Auth</span>
                         </div>
-                        <div className="deploy-row">
-                            <div className="dtop">
-                                <span className="di" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <FiDatabase size={15} />
-                                </span>
-                                Cloud Deployment
+                    </div>
+
+                    <div className="arch-card">
+                        <span className="arch-num">03 / STORAGE</span>
+                        <div className="arch-head">
+                            <div className="arch-icon">
+                                <FiDatabase size={18} />
                             </div>
-                            <div className="deploy-line"></div>
+                            <h4>Database Management</h4>
                         </div>
-                        <div className="success-block">
-                            <div className="rocket" style={{ display: 'inline-flex', justifyContent: 'center', marginBottom: '10px' }}>
-                                <FiCpu size={26} style={{ color: 'var(--green)' }} />
-                            </div>
-                            <div className="stxt">SUCCESS</div>
-                            <div className="stime">Service deployed at {deployTime}</div>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--muted)', lineHeight: '1.7' }}>
+                            Structuring relational models, database indexes, and foreign key relations. Linking PostgreSQL servers through Supabase for fast data querying.
+                        </p>
+                        <div className="arch-stack">
+                            <span className="arch-tag">PostgreSQL</span>
+                            <span className="arch-tag">Supabase</span>
+                            <span className="arch-tag">SQLAlchemy</span>
                         </div>
                     </div>
                 </div>
@@ -260,7 +251,7 @@ export default function Home() {
 
             <div className="cta-banner">
                 <h2>Ready for an <span className="accent">epic</span> build?</h2>
-                <Link className="btn-primary" to="/contact">Hire Me Now 🚀</Link>
+                <Link className="btn-primary" to="/contact">Let's Build Something 🚀</Link>
             </div>
         </div>
     );

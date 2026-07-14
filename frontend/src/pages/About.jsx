@@ -14,7 +14,7 @@ export default function About() {
                         <span className="ic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <FiShield size={16} />
                         </span>
-                        Philosophy &amp; Focus
+                        Engineering Ethos
                     </h3>
                     <p>
                         Detail-oriented BSIT graduate with strong expertise in full-stack web development. Experienced in building scalable, responsive, and user-focused web applications. I plan projects precisely before implementation, then sweat the details — real database flows, working token-based authentication, and mobile-responsive UI layouts — to match real-world product specifications.
@@ -41,7 +41,7 @@ export default function About() {
             <section id="education">
                 <div className="sec-head">
                     <div className="sec-eyebrow">Academic</div>
-                    <h2>Education</h2>
+                    <h2>Education Path</h2>
                 </div>
                 <div className="edu-card" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                     <div className="edu-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -58,7 +58,7 @@ export default function About() {
             {/* EXPERIENCE & ACHIEVEMENTS */}
             <section id="certifications">
                 <div className="sec-head">
-                    <div className="sec-eyebrow">Achievements</div>
+                    <div className="sec-eyebrow">Technical Credentials</div>
                     <h2>Certifications &amp; Training</h2>
                 </div>
                 <div className="cert-grid">
