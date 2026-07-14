@@ -39,10 +39,10 @@ export default function Footer() {
                     <a className="flink" href="tel:03482195468" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <FiPhone size={14} /> Contact
                     </a>
-                    <a className="flink" href="#" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <a className="flink" href="https://www.linkedin.com/in/saba-khalid-6ba1793b3/" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <FiLinkedin size={14} /> LinkedIn
                     </a>
-                    <a className="flink" href="#" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <a className="flink" href="https://github.com/sabakhalidpk091-eng" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <FiGithub size={14} /> GitHub
                     </a>
                 </div>
