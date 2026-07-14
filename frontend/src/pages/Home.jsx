@@ -130,64 +130,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* SKILLS */}
-            <section id="skills">
-                <div className="sec-head">
-                    <div className="sec-eyebrow">Toolkit</div>
-                    <h2>Core <span>Skills</span></h2>
-                    <p>Technologies I use to build full-stack web applications.</p>
-                </div>
-                <div className="skills-grid">
-                    <div className="skill-card">
-                        <div className="skill-icon cyan" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiLayout size={18} />
-                        </div>
-                        <h4>Frontend</h4>
-                        <div className="skill-list">
-                            <span>React.js / Vite</span>
-                            <span>JavaScript (ES6+)</span>
-                            <span>Tailwind CSS</span>
-                            <span>CSS3 &amp; HTML5</span>
-                        </div>
-                    </div>
-                    <div className="skill-card">
-                        <div className="skill-icon purple" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiCpu size={18} />
-                        </div>
-                        <h4>Backend</h4>
-                        <div className="skill-list">
-                            <span>Django</span>
-                            <span>FastAPI</span>
-                            <span>REST API Design</span>
-                            <span>Python API Specs</span>
-                        </div>
-                    </div>
-                    <div className="skill-card">
-                        <div className="skill-icon cyan" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiDatabase size={18} />
-                        </div>
-                        <h4>Database &amp; Cloud</h4>
-                        <div className="skill-list">
-                            <span>Supabase</span>
-                            <span>PostgreSQL</span>
-                            <span>Database Integration</span>
-                            <span>Vercel Deployments</span>
-                        </div>
-                    </div>
-                    <div className="skill-card">
-                        <div className="skill-icon purple" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiTool size={18} />
-                        </div>
-                        <h4>Tools / Other</h4>
-                        <div className="skill-list">
-                            <span>Git &amp; GitHub</span>
-                            <span>Cursor IDE</span>
-                            <span>Debugging &amp; AI Tools</span>
-                            <span>MS Office suite</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* CARD‑STYLE SKILL STACKS */}
             {/* Frontend Tech Cards */}
